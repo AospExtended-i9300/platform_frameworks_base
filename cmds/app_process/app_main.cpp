@@ -166,7 +166,6 @@ static void maybeCreateDalvikCache() {
 static const char ABI_LIST_PROPERTY[] = "ro.product.cpu.abilist64";
 static const char ZYGOTE_NICE_NAME[] = "zygote64";
 #else
-static const char ABI_LIST_PROPERTY[] = "ro.product.cpu.abilist32";
 static const char ZYGOTE_NICE_NAME[] = "zygote";
 #endif
 
@@ -310,12 +309,7 @@ int main(int argc, char* const argv[])
             args.add(String8("start-system-server"));
         }
 
-        char prop[PROP_VALUE_MAX];
-        if (property_get(ABI_LIST_PROPERTY, prop, NULL) == 0) {
-            LOG_ALWAYS_FATAL("app_process: Unable to determine ABI list from property %s.",
-                ABI_LIST_PROPERTY);
-            return 11;
-        }
+        char prop[PROP_VALUE_MAX] = "armeabi-v7a,armeabi";
 
         String8 abiFlag("--abi-list=");
         abiFlag.append(prop);
