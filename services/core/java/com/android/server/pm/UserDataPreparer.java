@@ -59,7 +59,7 @@ class UserDataPreparer {
     UserDataPreparer(Installer installer, Object installLock, Context context, boolean onlyCore) {
         mInstallLock = installLock;
         mContext = context;
-        mOnlyCore = onlyCore;
+        mOnlyCore = true;
         mInstaller = installer;
     }
 

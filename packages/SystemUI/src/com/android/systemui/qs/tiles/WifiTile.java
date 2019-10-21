@@ -243,7 +243,7 @@ public class WifiTile extends QSTileImpl<SignalState> {
 
     @Override
     public boolean isAvailable() {
-        return mContext.getPackageManager().hasSystemFeature(PackageManager.FEATURE_WIFI);
+	return false;
     }
 
     private static String removeDoubleQuotes(String string) {

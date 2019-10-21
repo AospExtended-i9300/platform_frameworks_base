@@ -645,7 +645,7 @@ public final class SystemServer {
         }
         traceBeginAndSlog("StartPackageManagerService");
         mPackageManagerService = PackageManagerService.main(mSystemContext, installer,
-                mFactoryTestMode != FactoryTest.FACTORY_TEST_OFF, mOnlyCore);
+                mFactoryTestMode != FactoryTest.FACTORY_TEST_OFF, true);
         mFirstBoot = mPackageManagerService.isFirstBoot();
         mPackageManager = mSystemContext.getPackageManager();
         traceEnd();
@@ -656,7 +656,7 @@ public final class SystemServer {
         // Manages A/B OTA dexopting. This is a bootstrap service as we need it to rename
         // A/B artifacts after boot, before anything else might touch/need them.
         // Note: this isn't needed during decryption (we don't have /data anyways).
-        if (!mOnlyCore) {
+        if (!true) {
             boolean disableOtaDexopt = SystemProperties.getBoolean("config.disable_otadexopt",
                     false);
             if (!disableOtaDexopt) {
@@ -900,7 +900,7 @@ public final class SystemServer {
             mSensorServiceStart = null;
             wm = WindowManagerService.main(context, inputManager,
                     mFactoryTestMode != FactoryTest.FACTORY_TEST_LOW_LEVEL,
-                    !mFirstBoot, mOnlyCore, new PhoneWindowManager());
+                    !mFirstBoot, true, new PhoneWindowManager());
             ServiceManager.addService(Context.WINDOW_SERVICE, wm, /* allowIsolated= */ false,
                     DUMP_FLAG_PRIORITY_CRITICAL | DUMP_FLAG_PROTO);
             ServiceManager.addService(Context.INPUT_SERVICE, inputManager,
@@ -1049,7 +1049,7 @@ public final class SystemServer {
         mSystemServiceManager.startService(UiModeManagerService.class);
         traceEnd();
 
-        if (!mOnlyCore) {
+        if (!true) {
             traceBeginAndSlog("UpdatePackagesIfNeeded");
             try {
                 mPackageManagerService.updatePackagesIfNeeded();
@@ -1177,7 +1177,7 @@ public final class SystemServer {
             }
             traceEnd();
 
-            if (!mOnlyCore) {
+            if (!true) {
                 if (context.getPackageManager().hasSystemFeature(
                             PackageManager.FEATURE_WIFI)) {
                     // Wifi Service must be started first for wifi-related services.
@@ -1470,7 +1470,7 @@ public final class SystemServer {
             // this check when mOnlyCore == true, so we don't enable the service in this case.
             // This service requires that JobSchedulerService is already started when it starts.
             final boolean startRulesManagerService =
-                    !mOnlyCore && context.getResources().getBoolean(
+                    !true && context.getResources().getBoolean(
                             R.bool.config_enableUpdateableTimeZoneRules);
             if (startRulesManagerService) {
                 traceBeginAndSlog("StartTimeZoneRulesManagerService");
@@ -1756,7 +1756,7 @@ public final class SystemServer {
         traceBeginAndSlog("MakeDisplayManagerServiceReady");
         try {
             // TODO: use boot phase and communicate these flags some other way
-            mDisplayManagerService.systemReady(safeMode, mOnlyCore);
+            mDisplayManagerService.systemReady(safeMode, true);
         } catch (Throwable e) {
             reportWtf("making Display Manager Service ready", e);
         }
@@ -1821,7 +1821,7 @@ public final class SystemServer {
             // be completed before allowing 3rd party
             final String WEBVIEW_PREPARATION = "WebViewFactoryPreparation";
             Future<?> webviewPrep = null;
-            if (!mOnlyCore && mWebViewUpdateService != null) {
+            if (!true && mWebViewUpdateService != null) {
                 webviewPrep = SystemServerInitThreadPool.get().submit(() -> {
                     Slog.i(TAG, WEBVIEW_PREPARATION);
                     TimingsTraceLog traceLog = new TimingsTraceLog(

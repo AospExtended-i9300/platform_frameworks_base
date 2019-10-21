@@ -413,7 +413,7 @@ public final class DisplayManagerService extends SystemService {
     public void systemReady(boolean safeMode, boolean onlyCore) {
         synchronized (mSyncRoot) {
             mSafeMode = safeMode;
-            mOnlyCore = onlyCore;
+            mOnlyCore = true;
             mSystemReady = true;
             // Just in case the top inset changed before the system was ready. At this point, any
             // relevant configuration should be in place.
@@ -855,14 +855,14 @@ public final class DisplayManagerService extends SystemService {
     }
 
     private void registerWifiDisplayAdapterLocked() {
-        if (mContext.getResources().getBoolean(
+        /*if (mContext.getResources().getBoolean(
                 com.android.internal.R.bool.config_enableWifiDisplay)
                 || SystemProperties.getInt(FORCE_WIFI_DISPLAY_ENABLE, -1) == 1) {
             mWifiDisplayAdapter = new WifiDisplayAdapter(
                     mSyncRoot, mContext, mHandler, mDisplayAdapterListener,
                     mPersistentDataStore);
             registerDisplayAdapterLocked(mWifiDisplayAdapter);
-        }
+        }*/
     }
 
     private boolean shouldRegisterNonEssentialDisplayAdaptersLocked() {
@@ -872,7 +872,7 @@ public final class DisplayManagerService extends SystemService {
         // In only-core mode, we disable non-essential display adapters to minimize
         // the number of dependencies that are started while in this mode and to
         // prevent problems that might occur due to the device being encrypted.
-        return !mSafeMode && !mOnlyCore;
+        return !mSafeMode && !true;
     }
 
     private void registerDisplayAdapterLocked(DisplayAdapter adapter) {

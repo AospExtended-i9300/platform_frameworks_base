@@ -2314,7 +2314,7 @@ public class PackageManagerService extends IPackageManager.Stub
         PackageManagerServiceCompilerMapping.checkProperties();
 
         PackageManagerService m = new PackageManagerService(context, installer,
-                factoryTest, onlyCore);
+                factoryTest, true);
         m.enableSystemUserPackages();
         ServiceManager.addService("package", m);
         final PackageManagerNative pmn = m.new PackageManagerNative();
@@ -2441,7 +2441,7 @@ public class PackageManagerService extends IPackageManager.Stub
         mContext = context;
 
         mFactoryTest = factoryTest;
-        mOnlyCore = onlyCore;
+        mOnlyCore = true;
         mMetrics = new DisplayMetrics();
         mInstaller = installer;
 

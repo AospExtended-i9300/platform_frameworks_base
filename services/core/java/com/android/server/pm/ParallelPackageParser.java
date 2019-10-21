@@ -57,7 +57,7 @@ class ParallelPackageParser implements AutoCloseable {
     ParallelPackageParser(String[] separateProcesses, boolean onlyCoreApps,
             DisplayMetrics metrics, File cacheDir, PackageParser.Callback callback) {
         mSeparateProcesses = separateProcesses;
-        mOnlyCore = onlyCoreApps;
+        mOnlyCore = true;
         mMetrics = metrics;
         mCacheDir = cacheDir;
         mPackageParserCallback = callback;

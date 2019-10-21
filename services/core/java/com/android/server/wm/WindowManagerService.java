@@ -928,7 +928,7 @@ public class WindowManagerService extends IWindowManager.Stub
         mContext = context;
         mHaveInputMethods = haveInputMethods;
         mAllowBootMessages = showBootMsgs;
-        mOnlyCore = onlyCore;
+        mOnlyCore = true;
         mLimitedAlphaCompositing = context.getResources().getBoolean(
                 com.android.internal.R.bool.config_sf_limitedAlpha);
         mHasPermanentDpad = context.getResources().getBoolean(
